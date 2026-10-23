@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>meu-bolso</title>
+  <meta name="theme-color" content="#1E5EFF">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icone.svg">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <!-- Tela de entrada -->
+  <main id="tela-entrada" class="tela" hidden>
+    <h1 class="marca">meu-bolso</h1>
+    <p class="sub">Seus gastos, sem complicação.</p>
+    <form id="form-entrada" class="cartao" novalidate>
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" autocomplete="current-password" minlength="6" required>
+      <p id="msg-entrada" class="msg" role="alert"></p>
+      <button type="submit" id="btn-entrar" class="botao">Entrar</button>
+      <button type="button" id="btn-criar" class="botao secundario">Criar conta</button>
+    </form>
+  </main>
+
+  <!-- App -->
+  <main id="tela-app" class="tela" hidden>
+    <header class="topo">
+      <h1 class="marca">meu-bolso</h1>
+      <button type="button" id="btn-sair" class="link">Sair</button>
+    </header>
+
+    <!-- Os primeiros 5 segundos -->
+    <section class="totais" aria-label="Totais">
+      <p class="rotulo">Gasto no mês</p>
+      <p id="total-mes" class="total-grande">R$ 0,00</p>
+      <div class="totais-menores">
+        <div><p class="rotulo">Semana</p><p id="total-semana" class="total-medio">R$ 0,00</p></div>
+        <div><p class="rotulo">Hoje</p><p id="total-hoje" class="total-medio">R$ 0,00</p></div>
+      </div>
+    </section>
+
+    <!-- Lançar à mão -->
+    <section class="cartao">
+      <h2>Lançar à mão</h2>
+      <form id="form-gasto" novalidate>
+        <label for="valor">Valor (R$)</label>
+        <input id="valor" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off">
+        <label for="descricao">Onde ou com o quê <span class="opcional">(opcional)</span></label>
+        <input id="descricao" type="text" placeholder="Ex.: padaria" autocomplete="off">
+        <p class="rotulo-campo">Categoria</p>
+        <div id="categorias" class="categorias" role="radiogroup" aria-label="Categoria"></div>
+        <label for="data">Data</label>
+        <input id="data" type="date">
+        <p id="msg-gasto" class="msg" role="alert"></p>
+        <button type="submit" class="botao">Salvar</button>
+      </form>
+    </section>
+
+    <!-- Resumo da semana (só aparece quando existe) -->
+    <section id="cartao-resumo" class="cartao" hidden>
+      <h2>Resumo da semana</h2>
+      <p id="texto-resumo" class="resumo"></p>
+    </section>
+
+    <!-- Assistente (chega na sexta) -->
+    <section class="cartao">
+      <h2>Assistente</h2>
+      <form id="form-assistente" novalidate>
+        <label for="frase" class="oculto">Frase do gasto</label>
+        <input id="frase" type="text" placeholder="Ex.: almoço 32 reais" autocomplete="off">
+        <div class="linha-botoes">
+          <button type="submit" class="botao">Enviar</button>
+          <button type="button" id="btn-foto" class="botao secundario">Foto do cupom</button>
+        </div>
+        <p id="msg-assistente" class="msg aviso" role="status"></p>
+      </form>
+    </section>
+
+    <!-- Por categoria -->
+    <section class="cartao">
+      <h2>Por categoria</h2>
+      <div id="barras"></div>
+    </section>
+
+    <!-- Gastos do mês -->
+    <section class="cartao">
+      <h2>Gastos do mês</h2>
+      <p id="lista-vazia" class="vazio">Nenhum gasto neste mês ainda.</p>
+      <ul id="lista" class="lista"></ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="configuracao.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
